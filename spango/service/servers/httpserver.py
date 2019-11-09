@@ -1,9 +1,6 @@
-import ssl
 from urllib import parse
-import socks
-import socket
 
-from service.constant import Constant
+from spango.service.constant import Constant
 
 
 class HttpServer:

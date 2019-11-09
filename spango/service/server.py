@@ -1,7 +1,7 @@
 import threading
 import socket
 
-from service.servers import httpserver
+from spango.service.servers import httpserver
 
 
 # 创建服务

@@ -1,7 +1,7 @@
 import argparse
 import threading
 import time
-from service import server
+from spango.service import server
 
 
 # 获取参数

@@ -1,5 +1,5 @@
 import os
-from utils import Properties
+from spango.utils import Properties
 
 
 # 常量类，用于获取配置文件信息
