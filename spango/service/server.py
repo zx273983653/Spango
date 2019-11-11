@@ -45,7 +45,6 @@ class Server:
     @classmethod
     def execute_work(cls, ss):
         if cls.server_type == 'http':
-            print('- - - 启动HTTP服务 - - -')
             httpserver.HttpServer(ss)
         elif cls.server_type == 'proxy':
             print('研发中')

@@ -1,6 +1,11 @@
-from urllib import parse
+import os
 
+from urllib import parse
 from spango.service.constant import Constant
+
+curPath = os.path.abspath(os.path.dirname(__file__))
+rootPath = curPath[:curPath.find('spango\\service\\servers')]
+static_path = rootPath + 'static'
 
 
 class HttpServer:
@@ -16,10 +21,18 @@ class HttpServer:
             cls.receive_data()
         except Exception as e:
             print(e)
-        print('收到请求方式：', cls.request.method)
-        print('接收全部内容：', cls.request.data)
+        # print('收到请求方式：', cls.request.method)
+        # print('接收全部内容：', cls.request.data)
         print("收到请求头：", cls.request.headers)
         print("收到请求体：", cls.request.body)
+        print("接收的url：", cls.request.url)
+
+        # 匹配url
+        # 优先匹配urls列表中的内容，如匹配不到，则匹配static目录
+        ##########返回给客户端
+        static_file = static_path + cls.request.url
+        ##########返回给客户端
+        # end
 
     # 解析url
     @classmethod
@@ -59,6 +72,9 @@ class HttpServer:
                     tmp_value = header_line.split(b': ')[1]
                     cls.request.headers[tmp_key.decode(Constant.DECODE)] = tmp_value.decode(Constant.DECODE)
 
+                # 封装url
+                cls.request.url = proto_data[proto_data.find(b' ') + 1:proto_data.find(b' HTTP/')].decode(Constant.DECODE)
+
                 # 封装请求方式
                 if proto_data.startswith(b'GET'):
                     cls.request.method = "GET"
@@ -81,9 +97,20 @@ class HttpServer:
 class Request:
     # 请求的原始数据
     data = bytes()
-    # 请求方式
-    method = None
     # 请求头
     headers = {}
+    # 请求方式
+    method = None
+    # 请求URL
+    url = None
     # 请求体
+    body = None
+
+
+class Response:
+    # 响应的原始数据
+    data = bytes()
+    # 响应头
+    headers = {}
+    # 响应体
     body = None

@@ -20,3 +20,15 @@ class Constant:
     ENCODE = props.get('encode')
     if not ENCODE:
         ENCODE = 'utf-8'
+
+    # 获取编码方式
+    DEFAULT_NET_INTERFACE = props.get('default_net_interface')
+    if not DEFAULT_NET_INTERFACE:
+        DEFAULT_NET_INTERFACE = '0.0.0.0'
+
+    # 获取编码方式
+    DEFAULT_PORT = props.get('default_port')
+    if not DEFAULT_PORT:
+        DEFAULT_PORT = 80
+    else:
+        DEFAULT_PORT = int(DEFAULT_PORT)
