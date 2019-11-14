@@ -41,6 +41,7 @@ def run():
     # 使用Ctrl + c 终止服务
     try:
         while True:
-            time.sleep(100)
+            time.sleep(60)
     except KeyboardInterrupt:
+        print('---------------------------------------------')
         print('END')
