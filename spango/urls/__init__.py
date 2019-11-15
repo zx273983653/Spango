@@ -1,11 +1,10 @@
-def url(regex, view=None, namespace='control'):
-    if namespace == 'control':
-        print('默认请求')
+def url(regex, view=None):
+    if view is None:
+        view = regex
 
     return_json = {
-        'url': '',
-        'data': '',
-        'data_type': '',
+        'regex': regex,
+        'view': view,
     }
 
     return return_json

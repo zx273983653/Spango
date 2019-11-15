@@ -5,11 +5,24 @@ from control import urls
 class UrlList:
     urls = []
 
-    def __init__(self):
+    @staticmethod
+    def init():
+        print('Add default URLs.')
         # 添加默认urls
-        self.urls = self.urls.extend(urls.urls)
+        UrlList.urls = UrlList.urls + urls.urls
+
+    @staticmethod
+    def set_up():
+        UrlList.init()
 
     # 添加其他urls
-    def set_urls(self, urls):
-        self.urls = self.urls.extend(urls)
+    @staticmethod
+    def set_urls(urls):
+        UrlList.urls = UrlList.urls + urls
 
+    # 匹配url
+    @staticmethod
+    def matching(url):
+        for regex in UrlList.urls:
+            if url.find(regex.get('regex')) != -1:
+                return regex

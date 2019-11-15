@@ -7,28 +7,30 @@ class Constant:
     DECODE = 'utf-8'
     ENCODE = 'utf-8'
 
-    # 读取配置信息
-    file_path = '%s%s' % (os.getcwd(), '/config/spjango.properties')
-    props = Properties.parse(file_path)
+    @staticmethod
+    def set_up():
+        # 读取配置信息
+        file_path = '%s%s' % (os.getcwd(), '/config/spjango.properties')
+        props = Properties.parse(file_path)
 
-    # 获取解码方式
-    DECODE = props.get('decode')
-    if not DECODE:
-        DECODE = 'utf-8'
+        # 获取解码方式
+        Constant.DECODE = props.get('decode')
+        if not Constant.DECODE:
+            Constant.DECODE = 'utf-8'
 
-    # 获取编码方式
-    ENCODE = props.get('encode')
-    if not ENCODE:
-        ENCODE = 'utf-8'
+        # 获取编码方式
+        Constant.ENCODE = props.get('encode')
+        if not Constant.ENCODE:
+            Constant.ENCODE = 'utf-8'
 
-    # 获取编码方式
-    DEFAULT_NET_INTERFACE = props.get('default_net_interface')
-    if not DEFAULT_NET_INTERFACE:
-        DEFAULT_NET_INTERFACE = '0.0.0.0'
+        # 获取编码方式
+        Constant.DEFAULT_NET_INTERFACE = props.get('default_net_interface')
+        if not Constant.DEFAULT_NET_INTERFACE:
+            Constant.DEFAULT_NET_INTERFACE = '0.0.0.0'
 
-    # 获取编码方式
-    DEFAULT_PORT = props.get('default_port')
-    if not DEFAULT_PORT:
-        DEFAULT_PORT = 80
-    else:
-        DEFAULT_PORT = int(DEFAULT_PORT)
+        # 获取编码方式
+        Constant.DEFAULT_PORT = props.get('default_port')
+        if not Constant.DEFAULT_PORT:
+            Constant.DEFAULT_PORT = 80
+        else:
+            Constant.DEFAULT_PORT = int(Constant.DEFAULT_PORT)

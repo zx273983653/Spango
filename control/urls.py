@@ -2,14 +2,14 @@ from spango.urls import url
 from control import views
 
 '''
-namespace:文件所在空间, 一般分为以下两种, 默认为 control。
-如果是多级目录用.分开。如: namespace='templates.ss3'，此url的返回视图所在目录为templates/ss3。
-处于static目录下的静态资源无需配置即可直接访问。
+使用示例：
+1. /index.html 返回跟目录下 index.html。(优先检索templates目录，然后检索static目录)
+2. /hello 跳进views.hello_world方法中进行处理。
+3. /login/${username}/${password} 路径类型的入参方式，其中username，password为参数，可在views.login中接收参数。
 '''
-CONTROL = 'control'
-TEMPLATES = 'templates'
 
 urls = [
-    url('/index.html', view='index.html', namespace=TEMPLATES),
-    url('/hello', view=views.hello_world)
+    url('/index.html', view='index.html'),
+    url('/hello', view=views.hello_world),
+    url('/login/${username}/${password}', view=views.login)
 ]
