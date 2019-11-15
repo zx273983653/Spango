@@ -2,11 +2,12 @@ import os
 
 from urllib import parse
 from spango.service.constant import Constant
+from spango.service import initaction
 from spango.service.servers.http.request import Request
 from spango.service.servers.http.response import Response
 
 curPath = os.path.abspath(os.path.dirname(__file__))
-rootPath = curPath[:curPath.find('spango\\service\\servers')]
+rootPath = curPath[:curPath.find('spango/service/servers')]
 static_path = rootPath + 'static'
 
 
@@ -15,7 +16,11 @@ class HttpServer:
     @classmethod
     def __init__(cls, ss):
         cls.ss = ss
+        # 初始化配置信息
+        initaction.action()
+        # 处理请求响应
         cls.execute()
+        # 结束后执行
 
     @classmethod
     def execute(cls):
