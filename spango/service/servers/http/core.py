@@ -2,6 +2,27 @@ from urllib import parse
 from spango.service.constant import Constant
 
 
+# 解析url
+def parse_urls(url):
+    proto = 80
+    up = parse.urlparse(url)
+    if up.scheme != "":
+        proto = up.scheme
+    dst = up.netloc.split(":")
+    if len(dst) == 2:
+        port = int(dst[1])
+    else:
+        if proto == "http":
+            port = 80
+        elif proto == "https":
+            port = 443
+    host = dst[0]
+    path = up.path
+    if path is None or path == '':
+        path = '/'
+    return proto, host, port, path
+
+
 # 接收数据包
 def receive_data(ss, request):
     while True:
@@ -85,22 +106,7 @@ def receive_data(ss, request):
                     request.data_block.append(data_block_dict)
 
 
-# 解析url
-def parse_urls(url):
-    proto = 80
-    up = parse.urlparse(url)
-    if up.scheme != "":
-        proto = up.scheme
-    dst = up.netloc.split(":")
-    if len(dst) == 2:
-        port = int(dst[1])
-    else:
-        if proto == "http":
-            port = 80
-        elif proto == "https":
-            port = 443
-    host = dst[0]
-    path = up.path
-    if path is None or path == '':
-        path = '/'
-    return proto, host, port, path
+# 发送数据
+def send_data(ss, response):
+    data = response.setup_data()
+    ss.send(data)

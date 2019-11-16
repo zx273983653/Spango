@@ -9,9 +9,15 @@ class Constant:
 
     @staticmethod
     def set_up():
+        print('Load configuration information.')
         # 读取配置信息
         file_path = '%s%s' % (os.getcwd(), '/config/spjango.properties')
         props = Properties.parse(file_path)
+
+        # 获取是否打印连接日志
+        Constant.ACCESS_LOG = props.get('access_log')
+        if not Constant.ACCESS_LOG:
+            Constant.ACCESS_LOG = 'true'
 
         # 获取解码方式
         Constant.DECODE = props.get('decode')

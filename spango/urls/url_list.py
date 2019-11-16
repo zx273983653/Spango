@@ -7,7 +7,7 @@ class UrlList:
 
     @staticmethod
     def init():
-        print('Add default URLs.')
+        print('Load Urls.')
         # 添加默认urls
         UrlList.urls = UrlList.urls + urls.urls
 

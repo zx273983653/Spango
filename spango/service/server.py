@@ -2,7 +2,7 @@ import threading
 import socket
 
 from spango.service.servers.http import httpserver
-
+from spango.service.constant import Constant
 
 # 创建服务
 class Server:
@@ -21,7 +21,8 @@ class Server:
         s.listen(512)
         while True:
             ss, address = s.accept()
-            print('client %s is connection!' % (address[0]))
+            if not Constant.ACCESS_LOG.upper() == 'FALSE':
+                print('client %s is connection!' % (address[0]))
             t = threading.Thread(target=cls.wait_connect, args=(ss, address,))
             t.start()
 

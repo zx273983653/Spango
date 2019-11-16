@@ -2,7 +2,7 @@ from urllib import parse
 from spango.service.constant import Constant
 
 
-class Request:
+class HttpRequest:
     # 请求的原始数据
     content = bytes()
     # 请求头
@@ -20,7 +20,7 @@ class Request:
 
     # 获取参数
     def get(self, param):
-        if self.method == 'POST' and self.body and self.headers.get('Content-Type') is None or self.headers.get('Content-Type').find('multipart/form-data') == -1:
+        if self.method == 'POST' and self.body and (self.headers.get('Content-Type') is None or self.headers.get('Content-Type').find('multipart/form-data') == -1):
             if self.search_str:
                 self.search_str += "%s%s" % ('&', self.body)
             else:
@@ -49,7 +49,7 @@ class Request:
 
     # 获取集合类型参数
     def gets(self, params):
-        if self.method == 'POST' and self.body and self.headers.get('Content-Type') is None or self.headers.get('Content-Type').find('multipart/form-data') == -1:
+        if self.method == 'POST' and self.body and (self.headers.get('Content-Type') is None or self.headers.get('Content-Type').find('multipart/form-data') == -1):
             if self.search_str:
                 self.search_str += "%s%s" % ('&', self.body)
             else:
