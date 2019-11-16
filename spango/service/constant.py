@@ -40,3 +40,22 @@ class Constant:
             Constant.DEFAULT_PORT = 80
         else:
             Constant.DEFAULT_PORT = int(Constant.DEFAULT_PORT)
+
+        # 请求头长度限制
+        Constant.maxHttpHeaderSize = props.get('maxHttpHeaderSize')
+        if not Constant.maxHttpHeaderSize:
+            Constant.maxHttpHeaderSize = 3872131
+        else:
+            Constant.maxHttpHeaderSize = int(Constant.maxHttpHeaderSize)
+
+        # url长度限制
+        Constant.maxUrlSize = props.get('maxUrlSize')
+        if not Constant.maxUrlSize:
+            Constant.maxUrlSize = 3872131
+        else:
+            Constant.maxUrlSize = int(Constant.maxUrlSize)
+
+        # 配置目录情况
+        Constant.ROOT_PATH = os.getcwd()
+        Constant.STATIC_PATH = Constant.ROOT_PATH + '/static/'
+        Constant.TEMPLATES_PATH = Constant.ROOT_PATH + '/templates/'

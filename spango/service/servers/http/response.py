@@ -1,6 +1,5 @@
 import time
 from spango.service.constant import Constant
-from spango.service.variable import Variable
 
 
 class HttpResponse:
@@ -21,7 +20,7 @@ class HttpResponse:
     # 最终响应的全部内容
     data = bytes()
 
-    def __init__(self, content=None, headers=None, status_line=None, body=None, variable=None):
+    def __init__(self, content=None, headers=None, status_line=None, body=None):
         if content:
             self.content = content
         if headers:
@@ -30,10 +29,6 @@ class HttpResponse:
             self.status_line = status_line
         if body:
             self.body = body
-        if variable:
-            self.variable = variable
-        else:
-            self.variable = Variable()
 
     # 设置状态码
     def set_status(self, code, **kwargs):
@@ -89,6 +84,7 @@ class HttpResponse:
     def setup_data(self):
         # 修改信息
         self.headers['Connection'] = self.variable.http_connection
+        self.headers['Content-Length'] = len(self.content)
 
         # 封装
         self.data += (self.status_line + '\r\n').encode(Constant.DECODE)

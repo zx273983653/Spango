@@ -1,5 +1,9 @@
+import os
 from urllib import parse
+from inspect import isfunction
+
 from spango.service.constant import Constant
+from spango.urls.url_list import UrlList
 
 
 # 解析url
@@ -26,7 +30,12 @@ def parse_urls(url):
 # 接收数据包
 def receive_data(ss, request):
     while True:
-        tmp_data = ss.recv(1024)
+        try:
+            tmp_data = ss.recv(512)
+        except ConnectionAbortedError:
+            ss.close()
+            return True
+
         request.content += tmp_data
         if request.content.find(b'\r\n\r\n') != -1:
             proto_data = request.content[:request.content.find(b'\r\n')]
@@ -55,10 +64,11 @@ def receive_data(ss, request):
                 request.method = "POST"
 
                 # 封装请求体
-                len_body = request.headers.get('Content-Length')
+                len_body = int(request.headers.get('Content-Length'))
                 if len_body:
                     request.body = request.content[request.content.find(b'\r\n\r\n') + 4:]
-                    break
+                    if len(request.body) >= len_body:
+                        break
                 else:
                     break
 
@@ -110,3 +120,82 @@ def receive_data(ss, request):
 def send_data(ss, response):
     data = response.setup_data()
     ss.send(data)
+
+
+# 接收与响应数据
+def loop_data(ss, request, response, variable):
+    n_do_while = True
+    while n_do_while or variable.http_connection == 'keep-alive':
+        n_do_while = False
+        if receive_data(ss, request):
+            break
+        processing_data(request, response, variable)
+        send_data(ss, response)
+
+
+# 处理数据
+def processing_data(request, response, variable):
+    # 获取目录信息
+    rootPath = Constant.ROOT_PATH
+    static_path = Constant.STATIC_PATH
+    templates_path = Constant.TEMPLATES_PATH
+
+    if request.headers.get('Connection'):
+        variable.http_connection = request.headers.get('Connection')
+    response.variable = variable
+
+    print("收到请求头：", request.headers)
+    try:
+        if request.body:
+            print("收到请求体：", request.body.decode(Constant.DECODE))
+    except UnicodeDecodeError:
+        print("收到请求体：", request.body)
+    print("收到FormData：", request.data_block)
+
+    print("接收的url：", request.url)
+    print("收到查询字符串：", request.search_str)
+    print("接收单个参数abc", request.get('abc'))
+    aaa = request.gets('abc')
+    print("接收数组参数abc", aaa)
+
+    # url长度限制校验
+    if request.url is None or len(request.url) > Constant.maxUrlSize:
+        response.set_status('400')
+        return
+
+    regex = UrlList.matching(request.url)
+    print('匹配到：', regex)
+    if regex is None:
+        # 匹配静态资源
+        if request.url.find('?') != -1:
+            filename = static_path + request.url[:request.url.find('?')]
+        else:
+            filename = static_path + request.url
+        content = read_file(filename)
+        if content:
+            response.content = content
+        else:
+            # 返回404
+            response.set_status('404', url=request.url)
+
+        return
+
+    if isinstance(regex.get('view'), str):
+        filename = templates_path + regex.get('view')
+        content = read_file(filename)
+        response.content = content
+    elif isfunction(regex.get('view')):
+        print(222222222222222222)
+    else:
+        print('无法处理的url')
+
+
+# 读取文件资源
+def read_file(filename):
+    if os.path.isfile(filename):
+        content = bytes()
+        with open(filename, "rb") as f:
+            for line in f:
+                content += line
+            f.close()
+        return content

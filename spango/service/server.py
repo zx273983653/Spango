@@ -4,6 +4,7 @@ import socket
 from spango.service.servers.http import httpserver
 from spango.service.constant import Constant
 
+
 # 创建服务
 class Server:
 
