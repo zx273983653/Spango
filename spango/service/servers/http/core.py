@@ -1,6 +1,7 @@
 import os
 from urllib import parse
 from inspect import isfunction
+import socket
 
 from spango.service.constant import Constant
 from spango.urls.url_list import UrlList
@@ -32,8 +33,14 @@ def receive_data(ss, request):
     while True:
         try:
             tmp_data = ss.recv(512)
+        except socket.timeout:
+            return True
         except ConnectionAbortedError:
-            ss.close()
+            return True
+        except OSError:
+            return True
+        except Exception as e:
+            raise e
             return True
 
         request.content += tmp_data
@@ -128,6 +135,7 @@ def loop_data(ss, request, response, variable):
     while n_do_while or variable.http_connection == 'keep-alive':
         n_do_while = False
         if receive_data(ss, request):
+            variable.http_connection == 'close'
             break
         processing_data(request, response, variable)
         send_data(ss, response)
@@ -177,7 +185,6 @@ def processing_data(request, response, variable):
         else:
             # 返回404
             response.set_status('404', url=request.url)
-
         return
 
     if isinstance(regex.get('view'), str):

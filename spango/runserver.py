@@ -37,15 +37,26 @@ def run():
     print("Listening: %s:%d" % (listen_ip, listen_port))
     lst = (listen_ip, listen_port)
 
-    # 子线程启动服务
-    t = threading.Thread(target=server.Server.run, args=(lst, server_type,))
+    # 正在连接的客户端列表
+    client_list = []
+
+    # 启动服务
+    t = threading.Thread(target=server.Server.run, args=(lst, server_type, client_list))
     t.setDaemon(True)
     t.start()
 
-    # 使用Ctrl + c 终止服务
     try:
         while True:
-            time.sleep(60)
+            # 使用Ctrl + c 终止服务
+            # time.sleep(60)
+
+            # 输入ls查看当前连接，输入任意键其他键终止服务
+            cmd = input()
+            if cmd == 'ls':
+                print('当前连接：')
+                for client in client_list:
+                    print(client[1])
+
     except KeyboardInterrupt:
         print('---------------------------------------------')
         print('END')

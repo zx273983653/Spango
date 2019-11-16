@@ -55,6 +55,13 @@ class Constant:
         else:
             Constant.maxUrlSize = int(Constant.maxUrlSize)
 
+        # 超时时间
+        Constant.time_out = props.get('time_out')
+        if not Constant.time_out:
+            Constant.time_out = 8
+        else:
+            Constant.time_out = int(Constant.time_out)
+
         # 配置目录情况
         Constant.ROOT_PATH = os.getcwd()
         Constant.STATIC_PATH = Constant.ROOT_PATH + '/static/'

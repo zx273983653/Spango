@@ -10,18 +10,18 @@ class Server:
 
     # 线程锁
     lock = threading.Lock()
-    # 连接的客户端列表
-    clientList = []
 
     # 启动
     @classmethod
-    def run(cls, lst, server_type):
+    def run(cls, lst, server_type, client_list):
         cls.server_type = server_type
+        cls.client_list = client_list
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind(lst)
         s.listen(512)
         while True:
             ss, address = s.accept()
+            ss.settimeout(Constant.time_out)
             if not Constant.ACCESS_LOG.upper() == 'FALSE':
                 print('client %s is connection!' % (address[0]))
             t = threading.Thread(target=cls.wait_connect, args=(ss, address,))
@@ -32,16 +32,16 @@ class Server:
     def wait_connect(cls, ss, address):
         # 加入连接列表
         cls.lock.acquire()
-        cls.clientList.append((ss, address))
+        cls.client_list.append((ss, address))
         cls.lock.release()
         # 执行业务
         cls.execute_work(ss)
-        # 关闭连接
-        ss.close()
         # 移除连接列表
         cls.lock.acquire()
-        cls.clientList.remove((ss, address))
+        cls.client_list.remove((ss, address))
         cls.lock.release()
+        # 关闭连接
+        ss.close()
 
     # 执行任务
     @classmethod
