@@ -48,14 +48,14 @@ def run():
     try:
         while True:
             # 使用Ctrl + c 终止服务
-            # time.sleep(60)
+            time.sleep(60)
 
             # 输入ls查看当前连接，输入任意键其他键终止服务
-            cmd = input()
-            if cmd == 'ls':
-                print('当前连接：')
-                for client in client_list:
-                    print(client[1])
+            # cmd = input()
+            # if cmd == 'ls':
+            #     print('当前连接：')
+            #     for client in client_list:
+            #         print(client[1])
 
     except KeyboardInterrupt:
         print('---------------------------------------------')

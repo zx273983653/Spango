@@ -3,7 +3,9 @@
 
 class Request:
     # 请求的原始数据
-    content = bytes()
+    content = None
+    # 状态行
+    status_line = None
     # 请求头
     headers = {}
     # 请求方式
@@ -20,6 +22,7 @@ class Request:
     def __init__(self, http_request):
         self.http_request = http_request
         self.content = http_request.content
+        self.status_line = http_request.status_line
         self.headers = http_request.headers
         self.method = http_request.method
         self.url = http_request.url
@@ -37,4 +40,35 @@ class Request:
 
 
 class Response:
-    pass
+    # 状态码
+    status_code = None
+    # 状态行
+    status_line = None
+    # 响应头
+    headers = None
+    # 响应体
+    body = None
+    # 响应体原始数据
+    content = None
+    # 最终响应的全部内容
+    data = None
+
+    def __init__(self, http_response):
+        self.http_response = http_response
+        self.status_code = http_response.status_code
+        self.status_line = http_response.status_line
+        self.headers = http_response.headers
+        self.body = http_response.body
+        self.content = http_response.content
+        self.data = http_response.data
+        self.variable = http_response.variable
+
+    # 设置状态码
+    def set_status(self, code, **kwargs):
+        self.http_response.set_status(code, **kwargs)
+
+    # 重定向
+    def redirect(self, url):
+        self.status_code = '302'
+        self.status_line = 'HTTP/1.1 302 Found'
+        self.headers['location'] = url

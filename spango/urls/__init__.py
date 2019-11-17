@@ -5,6 +5,7 @@ def url(regex, view=None):
     return_json = {
         'regex': regex,
         'view': view,
+        'args': None,
     }
 
     return return_json

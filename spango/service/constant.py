@@ -62,7 +62,12 @@ class Constant:
         else:
             Constant.time_out = int(Constant.time_out)
 
+        # 错误日志
+        Constant.error_log = props.get('error_log')
+        if not Constant.error_log:
+            Constant.error_log = 'true'
+
         # 配置目录情况
-        Constant.ROOT_PATH = os.getcwd()
+        Constant.ROOT_PATH = os.getcwd().replace('\\', '/')
         Constant.STATIC_PATH = Constant.ROOT_PATH + '/static/'
         Constant.TEMPLATES_PATH = Constant.ROOT_PATH + '/templates/'

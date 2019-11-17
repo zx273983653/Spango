@@ -1,0 +1,2 @@
+class SpError(Exception):
+    pass

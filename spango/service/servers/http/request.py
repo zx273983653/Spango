@@ -5,6 +5,8 @@ from spango.service.constant import Constant
 class HttpRequest:
     # 请求的原始数据
     content = bytes()
+    # 状态行
+    status_line = None
     # 请求头
     headers = {}
     # 请求方式

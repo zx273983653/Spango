@@ -1,7 +1,6 @@
-from spango.service.developer.http import Request
-from spango.service.servers.http import core
 from spango.service.servers.http.request import HttpRequest
 from spango.service.servers.http.response import HttpResponse
+from spango.service.servers.http import core
 from spango.service.variable import Variable
 
 
@@ -19,7 +18,7 @@ class HttpServer:
             # 定义变量类
             cls.variable = Variable()
             # 定义request
-            cls.request = Request(HttpRequest())
+            cls.request = HttpRequest()
             # 定义response
             cls.response = HttpResponse()
             # 接收响应数据

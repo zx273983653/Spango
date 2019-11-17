@@ -4,7 +4,7 @@ from spango.service.constant import Constant
 
 class HttpResponse:
     # 状态码
-    status_code = None
+    status_code = '200'
     # 状态行
     status_line = 'HTTP/1.1 200 OK'
     # 响应头
@@ -19,6 +19,11 @@ class HttpResponse:
     content = bytes()
     # 最终响应的全部内容
     data = bytes()
+    # 错误信息
+    error = None
+
+    # 封装变量容器
+    variable = None
 
     def __init__(self, content=None, headers=None, status_line=None, body=None):
         if content:
@@ -55,6 +60,21 @@ class HttpResponse:
                 page += '</body>\r\n</html>'
                 self.content = page.encode(Constant.DECODE)
 
+        elif code == '500':
+            self.status_line = 'HTTP/1.1 %s Server Error' % code
+            if not kwargs.get('page'):
+                url = kwargs.get('url')
+                page = str()
+                page += '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">\r\n'
+                page += '<html>\r\n<head><title>%s Server Error</title></head>\r\n' % code
+                page += '<body>\r\n<h1 style="color:#0066CC;">%s Server Error</h1><span style="color:#0066CC;">The requested URL %s encountered a server exception.</span>\r\n' % (code, url)
+                error = kwargs.get('error')
+                if error:
+                    page += '<div style="margin:20px;">%s</div>\r\n' % error
+                page += '</body>\r\n</html>'
+                self.content = page.encode(Constant.DECODE)
+                self.error = error
+
         elif code.startswith('50'):
             self.status_line = 'HTTP/1.1 %s Server Error' % code
             if not kwargs.get('page'):
@@ -68,6 +88,7 @@ class HttpResponse:
                     page += '<div style="margin:20px;">%s</div>\r\n' % error
                 page += '</body>\r\n</html>'
                 self.content = page.encode(Constant.DECODE)
+                self.error = error
 
         else:
             self.status_line = 'HTTP/1.1 %s Unknown Status' % code
@@ -85,18 +106,23 @@ class HttpResponse:
         # 修改信息
         self.headers['Connection'] = self.variable.http_connection
         self.headers['Content-Length'] = len(self.content)
-
         # 封装
         self.data += (self.status_line + '\r\n').encode(Constant.DECODE)
         for key in self.headers.keys():
             self.data += ('%s: %s' % (key, self.headers[key]) + '\r\n').encode(Constant.DECODE)
         self.data += '\r\n'.encode(Constant.DECODE)
-        self.data += self.content
+        if self.variable.request_method != 'HEAD' and not self.status_code.startswith('30'):
+            self.data += self.content
+        error_flag = False
+        if self.status_code.startswith('50'):
+            error_flag = True
 
-        return self.data
+        return self.data, error_flag
 
-    # 重定向
-    def redirect(self, url):
-        print(self.headers)
-        print('重定向：', url)
-
+    def set_response(self, response):
+        self.status_code = response.status_code
+        self.status_line = response.status_line
+        self.headers = response.headers
+        self.body = response.body
+        self.content = response.content
+        self.data = response.data
