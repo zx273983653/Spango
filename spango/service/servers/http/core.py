@@ -1,40 +1,18 @@
 import os
 import socket
-from urllib import parse
 import cgi
 from inspect import isfunction
 
 from spango.error import SpError
 from spango.service.constant import Constant
 from spango.urls.url_list import UrlList
+from spango.utils import parse_urls
 from spango.service.developer.http import Request
 from spango.service.developer.http import Response
 
 
-# 解析url
-def parse_urls(url):
-    proto = 'http'
-    up = parse.urlparse(url)
-    if up.scheme != "":
-        proto = up.scheme
-    dst = up.netloc.split(":")
-    if len(dst) == 2:
-        port = int(dst[1])
-    else:
-        if proto == "http":
-            port = 80
-        elif proto == "https":
-            port = 443
-    host = dst[0]
-    path = up.path
-    query = up.query
-    if path is None or path == '':
-        path = '/'
-    return proto, host, port, path, query
-
-
 # 接收数据包
-def receive_data(ss, request):
+def receive_data(ss, request, response):
     while True:
         try:
             tmp_data = ss.recv(512)
@@ -57,6 +35,8 @@ def receive_data(ss, request):
             # 封装请求头
             header_lines = header_data.split(b'\r\n')
             for header_line in header_lines:
+                if header_line.find(b': ') == -1:
+                    continue
                 tmp_key = header_line.split(b': ')[0]
                 tmp_value = header_line.split(b': ')[1]
                 request.headers[tmp_key.decode(Constant.DECODE)] = tmp_value.decode(Constant.DECODE)
@@ -69,27 +49,32 @@ def receive_data(ss, request):
                 request.search_str = request.url[request.url.find('?') + 1:]
 
             # 封装请求方式
-            if request.status_line.startswith(b'GET'):
-                request.method = "GET"
-                break
-            elif request.status_line.startswith(b'POST'):
-                request.method = "POST"
-
-                # 封装请求体
-                len_body = int(request.headers.get('Content-Length'))
-                if len_body:
-                    request.body = request.content[request.content.find(b'\r\n\r\n') + 4:]
-                    if len(request.body) >= len_body:
-                        break
-                else:
-                    break
-
-            elif request.status_line.startswith(b'HEAD'):
-                request.method = "HEAD"
-                break
+            status_line_arr = request.status_line.split(b' ')
+            if len(status_line_arr) != 3:
+                response.set_status('400', url=request.url)
+                return 0
             else:
-                print('__error__:目前不支持该请求方式')
-                break
+                if status_line_arr[0] == b'GET':
+                    request.method = "GET"
+                    break
+                elif status_line_arr[0] == b'POST':
+                    request.method = "POST"
+
+                    # 封装请求体
+                    len_body = int(request.headers.get('Content-Length'))
+                    if len_body:
+                        request.body = request.content[request.content.find(b'\r\n\r\n') + 4:]
+                        if len(request.body) >= len_body:
+                            break
+                    else:
+                        break
+
+                elif status_line_arr[0] == b'HEAD':
+                    request.method = "HEAD"
+                    break
+                else:
+                    print('__error__:目前不支持该请求方式')
+                    break
 
     # 处理form-data发包方式
     if request.headers.get('Content-Type') and request.headers.get('Content-Type').find(
@@ -143,10 +128,16 @@ def send_data(ss, response):
 # 接收与响应数据
 def loop_data(ss, request, response, variable):
     n_do_while = True
-    while n_do_while or variable.http_connection == 'keep-alive':
+    while n_do_while or variable.http_connection.lower() == 'keep-alive':
         n_do_while = False
-        if receive_data(ss, request):
-            variable.http_connection == 'close'
+        receive_status = receive_data(ss, request, response)
+        if receive_status:
+            variable.http_connection = 'close'
+            break
+        elif receive_status == 0:
+            # Direct discarding
+            print(1111111111111111)
+            send_data(ss, response)
             break
         processing_data(request, response, variable)
         send_data(ss, response)

@@ -1,4 +1,5 @@
 # 提供给开发者调用
+from multidict import CIMultiDict
 
 
 class Request:
@@ -7,7 +8,7 @@ class Request:
     # 状态行
     status_line = None
     # 请求头
-    headers = {}
+    headers = CIMultiDict()
     # 请求方式
     method = None
     # 请求URL
@@ -72,3 +73,12 @@ class Response:
         self.status_code = '302'
         self.status_line = 'HTTP/1.1 302 Found'
         self.headers['location'] = url
+
+    # 设置cookie
+    def set_cookie(self, cookies, path='/', domain=None):
+        for k in cookies.keys():
+            if domain:
+                cookie_value = "%s=%s; path=%s; domain=%s" % (k, cookies[k], path, domain)
+            else:
+                cookie_value = "%s=%s; path=%s" % (k, cookies[k], path)
+        self.headers['Set-Cookie'] = cookie_value

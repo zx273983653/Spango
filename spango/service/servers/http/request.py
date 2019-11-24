@@ -1,3 +1,4 @@
+from multidict import CIMultiDict
 from urllib import parse
 from spango.service.constant import Constant
 
@@ -8,7 +9,7 @@ class HttpRequest:
     # 状态行
     status_line = None
     # 请求头
-    headers = {}
+    headers = CIMultiDict()
     # 请求方式
     method = None
     # 请求URL

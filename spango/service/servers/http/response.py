@@ -1,5 +1,6 @@
 import time
 from spango.service.constant import Constant
+from spango.service.variable import Variable
 
 
 class HttpResponse:
@@ -104,6 +105,8 @@ class HttpResponse:
     # 封装并返回响应数据
     def setup_data(self):
         # 修改信息
+        if not self.variable:
+            self.variable = Variable()
         self.headers['Connection'] = self.variable.http_connection
         self.headers['Content-Length'] = len(self.content)
         # 封装

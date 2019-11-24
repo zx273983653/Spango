@@ -67,6 +67,9 @@ class Constant:
         if not Constant.error_log:
             Constant.error_log = 'true'
 
+        # 设置sessionCookieName
+        Constant.sessionCookieName = props.get('sessionCookieName')
+
         # 配置目录情况
         Constant.ROOT_PATH = os.getcwd().replace('\\', '/')
         Constant.STATIC_PATH = Constant.ROOT_PATH + '/static/'
