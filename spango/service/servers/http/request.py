@@ -21,6 +21,18 @@ class HttpRequest:
     # form-data方式时一些参数
     data_block = []
 
+    # 初始化变量
+    # initialize
+    def set_initialize(self):
+        self.content = bytes()
+        self.status_line = None
+        self.headers = CIMultiDict()
+        self.method = None
+        self.url = None
+        self.search_str = None
+        self.body = None
+        self.data_block = []
+
     # 获取参数
     def get(self, param):
         if self.method == 'POST' and self.body and (self.headers.get('Content-Type') is None or self.headers.get('Content-Type').find('multipart/form-data') == -1):

@@ -2,17 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="02f39b22-ab44-4bef-bb55-0140600b5976" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/spango/service/servers/http/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spango/utils/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/3.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spango/utils/filetype.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img/t1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/login/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/4.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/5.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/spjango.properties" beforeDir="false" afterPath="$PROJECT_DIR$/config/spjango.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spango/service/constant.py" beforeDir="false" afterPath="$PROJECT_DIR$/spango/service/constant.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/control/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/control/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/control/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/control/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/spango/service/developer/http.py" beforeDir="false" afterPath="$PROJECT_DIR$/spango/service/developer/http.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/spango/service/servers/http/core.py" beforeDir="false" afterPath="$PROJECT_DIR$/spango/service/servers/http/core.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/spango/service/servers/http/request.py" beforeDir="false" afterPath="$PROJECT_DIR$/spango/service/servers/http/request.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/spango/service/servers/http/response.py" beforeDir="false" afterPath="$PROJECT_DIR$/spango/service/servers/http/response.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spango/service/variable.py" beforeDir="false" afterPath="$PROJECT_DIR$/spango/service/variable.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spango/utils/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/spango/utils/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/3.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/3.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,27 +28,25 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/spango/service/servers/http/__init__.py">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/spango/service/servers/http/core.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="131">
-              <caret line="53" column="30" selection-start-line="53" selection-start-column="30" selection-end-line="53" selection-end-column="30" />
+            <state relative-caret-position="93">
+              <caret line="131" column="36" selection-start-line="131" selection-start-column="36" selection-end-line="131" selection-end-column="36" />
               <folding>
-                <element signature="e#0#9#0" expanded="true" />
+                <element signature="e#0#13#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/spango/service/servers/http/httpserver.py">
+        <entry file="file://$PROJECT_DIR$/test/4.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="57">
-              <caret line="3" selection-start-line="3" selection-end-line="3" selection-end-column="44" />
+            <state relative-caret-position="361">
+              <caret line="19" column="26" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -51,8 +54,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/spango/service/servers/http/response.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="127">
-              <caret line="107" column="29" lean-forward="true" selection-start-line="107" selection-start-column="29" selection-end-line="107" selection-end-column="29" />
+            <state relative-caret-position="359">
+              <caret line="150" column="57" selection-start-line="150" selection-start-column="57" selection-end-line="150" selection-end-column="57" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -61,10 +64,52 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/3.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="95">
+              <caret line="5" selection-start-line="5" selection-end-line="5" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/spango/service/servers/http/httpserver.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="18" column="30" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
+              <folding>
+                <element signature="e#0#59#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/spango/service/developer/http.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="114">
-              <caret line="6" column="18" lean-forward="true" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
+            <state relative-caret-position="255">
+              <caret line="47" column="38" lean-forward="true" selection-start-line="47" selection-start-column="38" selection-end-line="47" selection-end-column="38" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/control/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="304">
+              <caret line="16" column="16" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
+              <folding>
+                <element signature="e#0#27#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/control/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="13" column="23" lean-forward="true" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -81,26 +126,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>socket</find>
-      <find>url</find>
-      <find>filename</find>
-      <find>static_path</find>
-      <find>search_str</find>
-      <find>收到查询字符串</find>
-      <find>request</find>
-      <find>response.variable</find>
-      <find>processing_data</find>
-      <find>setup_data</find>
-      <find>11111111111111111111</find>
-      <find>self.http_response</find>
-      <find>html_escape</find>
-      <find>111111111</find>
-      <find>error</find>
-      <find>ConnectionAbortedError</find>
-      <find>访问接口：</find>
-      <find>Constant.access_log</find>
-      <find>data_block</find>
-      <find>Request interface</find>
       <find>parse</find>
       <find>parse_urls</find>
       <find>CIMultiDict</find>
@@ -111,6 +136,26 @@
       <find>loop_data</find>
       <find>variable</find>
       <find>Variable</find>
+      <find>('Connection').lower() ==</find>
+      <find>lower() ==</find>
+      <find>cgi</find>
+      <find>暂不支持</find>
+      <find>startswith('50')</find>
+      <find>page = str()</find>
+      <find>不支持</find>
+      <find>loop</find>
+      <find>read_file</find>
+      <find>wvx</find>
+      <find>dwf</find>
+      <find>jpg</find>
+      <find>read_file(</find>
+      <find>content_type</find>
+      <find>tif</find>
+      <find>read_f</find>
+      <find>isfun</find>
+      <find>processing_data</find>
+      <find>headers</find>
+      <find>val</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -134,24 +179,29 @@
         <option value="$PROJECT_DIR$/static/index1.html" />
         <option value="$PROJECT_DIR$/test/test1.py" />
         <option value="$PROJECT_DIR$/spango/service/server.py" />
-        <option value="$PROJECT_DIR$/spango/service/variable.py" />
         <option value="$PROJECT_DIR$/spango/urls/__init__.py" />
         <option value="$PROJECT_DIR$/spango/urls/url_list.py" />
         <option value="$PROJECT_DIR$/spango/runserver.py" />
         <option value="$PROJECT_DIR$/spango/service/servers/http/httpserver.py" />
         <option value="$PROJECT_DIR$/spango/error/__init__.py" />
-        <option value="$PROJECT_DIR$/control/views.py" />
-        <option value="$PROJECT_DIR$/control/urls.py" />
-        <option value="$PROJECT_DIR$/spango/utils/__init__.py" />
-        <option value="$PROJECT_DIR$/spango/service/servers/http/request.py" />
         <option value="$PROJECT_DIR$/test/2.py" />
         <option value="$PROJECT_DIR$/spango/service/constant.py" />
-        <option value="$PROJECT_DIR$/config/spjango.properties" />
         <option value="$PROJECT_DIR$/spango/service/servers/http/__init__.py" />
-        <option value="$PROJECT_DIR$/spango/service/developer/http.py" />
+        <option value="$PROJECT_DIR$/config/spjango.properties" />
+        <option value="$PROJECT_DIR$/templates/login/login.html" />
+        <option value="$PROJECT_DIR$/spango/service/servers/http/request.py" />
+        <option value="$PROJECT_DIR$/spango/service/variable.py" />
+        <option value="$PROJECT_DIR$/spango/utils/Filetype.py" />
+        <option value="$PROJECT_DIR$/test/5.py" />
+        <option value="$PROJECT_DIR$/test/4.py" />
+        <option value="$PROJECT_DIR$/spango/utils/filetype.py" />
+        <option value="$PROJECT_DIR$/spango/utils/__init__.py" />
+        <option value="$PROJECT_DIR$/spango/service/servers/http/core.py" />
+        <option value="$PROJECT_DIR$/control/urls.py" />
+        <option value="$PROJECT_DIR$/control/views.py" />
         <option value="$PROJECT_DIR$/test/3.py" />
         <option value="$PROJECT_DIR$/spango/service/servers/http/response.py" />
-        <option value="$PROJECT_DIR$/spango/service/servers/http/core.py" />
+        <option value="$PROJECT_DIR$/spango/service/developer/http.py" />
       </list>
     </option>
   </component>
@@ -184,6 +234,11 @@
             <path>
               <item name="Spango" type="b2602c69:ProjectViewProjectNode" />
               <item name="Spango" type="462c0819:PsiDirectoryNode" />
+              <item name="control" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Spango" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Spango" type="462c0819:PsiDirectoryNode" />
               <item name="spango" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -191,6 +246,13 @@
               <item name="Spango" type="462c0819:PsiDirectoryNode" />
               <item name="spango" type="462c0819:PsiDirectoryNode" />
               <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Spango" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Spango" type="462c0819:PsiDirectoryNode" />
+              <item name="spango" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="developer" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Spango" type="b2602c69:ProjectViewProjectNode" />
@@ -210,7 +272,30 @@
             <path>
               <item name="Spango" type="b2602c69:ProjectViewProjectNode" />
               <item name="Spango" type="462c0819:PsiDirectoryNode" />
+              <item name="spango" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Spango" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Spango" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Spango" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Spango" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="img" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Spango" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Spango" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Spango" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Spango" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="login" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Spango" type="b2602c69:ProjectViewProjectNode" />
@@ -227,21 +312,22 @@
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/static/img" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="F:\Git\GitHub\Spango\static" />
-      <recent name="F:\Git\GitHub\Spango\static\img" />
-      <recent name="F:\Git\GitHub\Spango\spango" />
-      <recent name="F:\Git\GitHub\spjango\utils" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="F:\Git\GitHub\Spango\spango\service\servers\http" />
       <recent name="F:\Git\GitHub\spjango\pang" />
       <recent name="F:\Git\GitHub\spjango\service\" />
       <recent name="F:\Git\GitHub\spjango\" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\Git\GitHub\Spango\static\img" />
+      <recent name="F:\Git\GitHub\Spango\templates\login" />
+      <recent name="F:\Git\GitHub\Spango\static" />
+      <recent name="F:\Git\GitHub\Spango\spango" />
+      <recent name="F:\Git\GitHub\spjango\utils" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -257,27 +343,6 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.3">
-    <configuration name="2" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="spjango" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test/2.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="3" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="spjango" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -299,49 +364,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="core" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="spjango" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/spango/service/servers/http" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/spango/service/servers/http/core.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="response" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="spjango" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/spango/service/servers/http" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/spango/service/servers/http/response.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="test1" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="4" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="spjango" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -353,7 +376,70 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test/test1.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test/4.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="5" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="spjango" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test/5.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="__init__" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="spjango" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/spango/utils" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/spango/utils/__init__.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="filetype" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="spjango" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/spango/utils" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/spango/utils/filetype.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -365,10 +451,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.3" />
-        <item itemvalue="Python.2" />
-        <item itemvalue="Python.core" />
-        <item itemvalue="Python.test1" />
-        <item itemvalue="Python.response" />
+        <item itemvalue="Python.__init__" />
+        <item itemvalue="Python.filetype" />
+        <item itemvalue="Python.4" />
+        <item itemvalue="Python.5" />
       </list>
     </recent_temporary>
   </component>
@@ -474,7 +560,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573989697487</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="1">
+      <created>1574576829152</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1574576829152</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -503,9 +596,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="11" />
-    <MESSAGE value="1" />
     <MESSAGE value="11-17" />
-    <option name="LAST_COMMIT_MESSAGE" value="11-17" />
+    <MESSAGE value="1" />
+    <option name="LAST_COMMIT_MESSAGE" value="1" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/control/__init__.py" />
@@ -626,13 +719,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Python/Python36/Lib/site-packages/pandas/tests/computation/test_eval.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-193">
-          <caret line="130" column="8" selection-start-line="130" selection-start-column="8" selection-end-line="130" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/spango/service/server.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="131">
@@ -660,51 +746,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/control/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="14" column="19" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/control/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="12" column="8" lean-forward="true" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/spango/utils/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="3" column="7" lean-forward="true" selection-start-line="3" selection-start-column="7" selection-end-line="3" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/test1.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="38">
           <caret line="2" column="8" lean-forward="true" selection-start-line="2" selection-start-column="8" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/spango/service/servers/http/request.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-          <folding>
-            <element signature="e#0#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/spjango.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
         </state>
       </provider>
     </entry>
@@ -718,23 +763,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/spango/service/servers/http/__init__.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/2.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
           <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/3.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/spango/service/developer/http.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="6" column="18" lean-forward="true" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
         </state>
       </provider>
     </entry>
@@ -745,37 +777,142 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/spango/service/servers/http/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://D:/Python/Python36/Lib/site-packages/pandas/tests/computation/test_eval.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="415">
+          <caret line="144" column="38" selection-start-line="144" selection-start-column="26" selection-end-line="144" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/spjango.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/login/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="16" column="28" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/spango/service/variable.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="29" lean-forward="true" selection-start-line="2" selection-start-column="29" selection-end-line="2" selection-end-column="29" />
+        <state relative-caret-position="57">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/img/t1.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/5.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="1" column="8" lean-forward="true" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/spango/utils/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="45" column="34" lean-forward="true" selection-start-line="45" selection-start-column="34" selection-end-line="45" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/spango/utils/filetype.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="345" selection-start-line="345" selection-end-line="345" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/spango/service/servers/http/request.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="149">
+          <caret line="36" column="8" selection-start-line="36" selection-start-column="8" selection-end-line="36" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#33#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/spango/service/servers/http/httpserver.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="3" selection-start-line="3" selection-end-line="3" selection-end-column="44" />
+        <state relative-caret-position="144">
+          <caret line="18" column="30" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#59#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/spango/service/servers/http/response.py">
+    <entry file="file://$PROJECT_DIR$/control/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="107" column="29" lean-forward="true" selection-start-line="107" selection-start-column="29" selection-end-line="107" selection-end-column="29" />
+        <state relative-caret-position="304">
+          <caret line="16" column="16" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
           <folding>
-            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#0#27#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/spango/service/servers/http/core.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="53" column="30" selection-start-line="53" selection-start-column="30" selection-end-line="53" selection-end-column="30" />
+        <state relative-caret-position="93">
+          <caret line="131" column="36" selection-start-line="131" selection-start-column="36" selection-end-line="131" selection-end-column="36" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#0#13#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/4.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="19" column="26" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/3.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" selection-start-line="5" selection-end-line="5" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/spango/service/servers/http/response.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="359">
+          <caret line="150" column="57" selection-start-line="150" selection-start-column="57" selection-end-line="150" selection-end-column="57" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/control/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="13" column="23" lean-forward="true" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/spango/service/developer/http.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="47" column="38" lean-forward="true" selection-start-line="47" selection-start-column="38" selection-end-line="47" selection-end-column="38" />
         </state>
       </provider>
     </entry>

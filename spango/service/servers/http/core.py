@@ -1,21 +1,25 @@
-import os
 import socket
-import cgi
 from inspect import isfunction
 
 from spango.error import SpError
 from spango.service.constant import Constant
 from spango.urls.url_list import UrlList
 from spango.utils import parse_urls
+from spango.utils import html_escape
+from spango.utils import read_file
+from spango.utils import filetype
 from spango.service.developer.http import Request
 from spango.service.developer.http import Response
 
 
 # 接收数据包
+# receive packets
 def receive_data(ss, request, response):
     while True:
         try:
             tmp_data = ss.recv(512)
+            if tmp_data == b'':
+                return True
         except socket.timeout:
             return True
         except ConnectionAbortedError:
@@ -33,6 +37,7 @@ def receive_data(ss, request, response):
                           request.content.find(b'\r\n') + 2:request.content.find(b'\r\n\r\n')]
 
             # 封装请求头
+            # pack request headers
             header_lines = header_data.split(b'\r\n')
             for header_line in header_lines:
                 if header_line.find(b': ') == -1:
@@ -42,13 +47,16 @@ def receive_data(ss, request, response):
                 request.headers[tmp_key.decode(Constant.DECODE)] = tmp_value.decode(Constant.DECODE)
 
             # 封装url
+            # pack url
             request.url = request.status_line[request.status_line.find(b' ') + 1:request.status_line.find(b' HTTP/')].decode(Constant.DECODE)
 
             # 封装查询字符串
+            # pack query string
             if request.url.find('?') != -1:
                 request.search_str = request.url[request.url.find('?') + 1:]
 
             # 封装请求方式
+            # pack request method
             status_line_arr = request.status_line.split(b' ')
             if len(status_line_arr) != 3:
                 response.set_status('400', url=request.url)
@@ -61,6 +69,7 @@ def receive_data(ss, request, response):
                     request.method = "POST"
 
                     # 封装请求体
+                    # pack request body
                     len_body = int(request.headers.get('Content-Length'))
                     if len_body:
                         request.body = request.content[request.content.find(b'\r\n\r\n') + 4:]
@@ -74,9 +83,12 @@ def receive_data(ss, request, response):
                     break
                 else:
                     print('__error__:目前不支持该请求方式')
-                    break
+                    print('__error__:Request method is not supported temporarily.')
+                    response.set_status('501', url=request.url, error='Request method is not supported temporarily.', line_info='Not Implemented')
+                    return 0
 
     # 处理form-data发包方式
+    # handle form-data
     if request.headers.get('Content-Type') and request.headers.get('Content-Type').find(
             'multipart/form-data') != -1:
         if request.body:
@@ -115,6 +127,7 @@ def receive_data(ss, request, response):
 
 
 # 发送数据
+# send data
 def send_data(ss, response):
     data, error_flag = response.setup_data()
     try:
@@ -126,17 +139,22 @@ def send_data(ss, response):
 
 
 # 接收与响应数据
+# reception and response data
 def loop_data(ss, request, response, variable):
     n_do_while = True
     while n_do_while or variable.http_connection.lower() == 'keep-alive':
         n_do_while = False
+        # 初始化变量
+        # initialize variable
+        request.set_initialize()
+        response.set_initialize()
+        variable.set_initialize()
+
         receive_status = receive_data(ss, request, response)
         if receive_status:
-            variable.http_connection = 'close'
             break
         elif receive_status == 0:
             # Direct discarding
-            print(1111111111111111)
             send_data(ss, response)
             break
         processing_data(request, response, variable)
@@ -144,28 +162,39 @@ def loop_data(ss, request, response, variable):
 
 
 # 处理数据
+# handle data
 def processing_data(request, response, variable):
     # 获取目录信息
+    # get catalog information
     rootPath = Constant.ROOT_PATH
     static_path = Constant.STATIC_PATH
     templates_path = Constant.TEMPLATES_PATH
 
     # 封装变量
+    # pack variables
     variable.request_method = request.method
     if request.headers.get('Connection'):
-        variable.http_connection = request.headers.get('Connection')
+        if request.headers.get('Connection').lower() == 'keep-alive':
+            variable.http_connection = 'Keep-Alive'
+        # 由于默认是'close' 所以注释掉下面两行
+        # Because the default is 'close'.comment out the following two lines.
+        # elif request.headers.get('Connection').lower() == 'close':
+        #     variable.http_connection = 'close'
     response.variable = variable
 
     # url长度限制校验
+    # url length restriction
     if request.url is None or len(request.url) > Constant.maxUrlSize:
         response.set_status('400', url=request.url)
         return
 
     # 解析url
+    # parse url
     proto, host, port, path, query = parse_urls(request.url)
     path = path.strip()
 
     # 设置默认访问路径
+    # set default access path
     if path == '/':
         path = '/index.html'
 
@@ -175,8 +204,11 @@ def processing_data(request, response, variable):
     if regex_json is None:
         # 匹配静态资源
         filename = static_path + path
-        content = read_file(filename)
+        content, name, extension_name = read_file(filename)
         if content:
+            tmp_content_type = filetype.content_type_list.get(extension_name)
+            if tmp_content_type:
+                response.headers['Content-Type'] = tmp_content_type
             response.content = content
         else:
             response.set_status('404', url=request.url)
@@ -184,8 +216,11 @@ def processing_data(request, response, variable):
 
     if isinstance(regex_json.get('view'), str):
         filename = templates_path + regex_json.get('view')
-        content = read_file(filename)
+        content, name, extension_name = read_file(filename)
         if content:
+            tmp_content_type = filetype.content_type_list.get(extension_name)
+            if tmp_content_type:
+                response.headers['Content-Type'] = tmp_content_type
             response.content = content
         else:
             response.set_status('500', url=request.url, error='系统找不到文件：' + filename)
@@ -194,6 +229,7 @@ def processing_data(request, response, variable):
         func = regex_json.get('view')
         args = regex_json.get('args')
         # 获取函数参数列表
+        # get function list
         f_args = func.__code__.co_varnames
 
         parameter = {}
@@ -222,19 +258,3 @@ def processing_data(request, response, variable):
 
     else:
         print('无法处理的url')
-
-
-# 读取文件资源
-def read_file(filename):
-    if os.path.isfile(filename):
-        content = bytes()
-        with open(filename, "rb") as f:
-            for line in f:
-                content += line
-            f.close()
-        return content
-
-
-# HTML解码
-def html_escape(s):
-    return cgi.escape(s)

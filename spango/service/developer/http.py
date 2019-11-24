@@ -39,6 +39,19 @@ class Request:
     def gets(self, params):
         return self.http_request.gets(params)
 
+    def get_cookies(self):
+        c = {}
+        cookies = self.headers.get('Cookie')
+        if cookies:
+            blocks = cookies.split('; ')
+            for block in blocks:
+                kvs = block.split('=')
+                if len(kvs) == 2:
+                    k = kvs[0]
+                    v = kvs[1]
+                    c[k] = v
+        return c
+
 
 class Response:
     # 状态码
@@ -76,9 +89,11 @@ class Response:
 
     # 设置cookie
     def set_cookie(self, cookies, path='/', domain=None):
+        cookie_list = []
         for k in cookies.keys():
             if domain:
                 cookie_value = "%s=%s; path=%s; domain=%s" % (k, cookies[k], path, domain)
             else:
                 cookie_value = "%s=%s; path=%s" % (k, cookies[k], path)
-        self.headers['Set-Cookie'] = cookie_value
+            cookie_list.append(cookie_value)
+        self.headers['Set-Cookie'] = cookie_list

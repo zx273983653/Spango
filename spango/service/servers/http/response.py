@@ -22,7 +22,6 @@ class HttpResponse:
     data = bytes()
     # 错误信息
     error = None
-
     # 封装变量容器
     variable = None
 
@@ -36,39 +35,70 @@ class HttpResponse:
         if body:
             self.body = body
 
+    # 初始化变量
+    # initialize
+    def set_initialize(self):
+        self.status_code = '200'
+        self.status_line = 'HTTP/1.1 200 OK'
+        self.headers = {
+            "Server": 'Spango/1.0',
+            "Date": time.strftime('%a, %d %b %Y %X GMT', time.localtime(time.time())),
+            "Content-Type": 'text/html; charset=%s' % Constant.DECODE,
+        }
+        self.body = None
+        self.content = bytes()
+        self.data = bytes()
+        self.error = None
+        self.variable = None
+
     # 设置状态码
     def set_status(self, code, **kwargs):
         self.status_code = code
+        if kwargs.get('line_info'):
+            line_info = kwargs.get('line_info')
+            self.status_line = 'HTTP/1.1 %s %s' % (code, line_info)
+        else:
+            line_info = None
+
         if code == '404':
-            self.status_line = 'HTTP/1.1 404 Not Found'
+            if not line_info:
+                line_info = 'Not Found'
+            self.status_line = 'HTTP/1.1 %s %s' % (code, line_info)
+
             if not kwargs.get('page'):
                 url = kwargs.get('url')
-                page = str()
+                page = ''
                 page += '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">\r\n'
-                page += '<html>\r\n<head><title>404 Not Found</title></head>\r\n'
-                page += '<body>\r\n<h1 style="color:#0066CC;">404 Not Found</h1><span style="color:#0066CC;">The requested URL %s was not found on this server.</span>\r\n' % url
+                page += '<html>\r\n<head><title>404 %s</title></head>\r\n' % line_info
+                page += '<body>\r\n<h1 style="color:#0066CC;">404 %s</h1><span style="color:#0066CC;">The requested URL %s was not found on this server.</span>\r\n' % (line_info, url)
                 page += '</body>\r\n</html>'
                 self.content = page.encode(Constant.DECODE)
 
         elif code == '400':
-            self.status_line = 'HTTP/1.1 400 Bad Url'
+            if not line_info:
+                line_info = 'Bad Url'
+            self.status_line = 'HTTP/1.1 %s %s' % (code, line_info)
+
             if not kwargs.get('page'):
                 url = kwargs.get('url')
-                page = str()
+                page = ''
                 page += '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">\r\n'
-                page += '<html>\r\n<head><title>400 Bad Request</title></head>\r\n'
-                page += '<body>\r\n<h1 style="color:#0066CC;">400 Bad Request</h1><span style="color:#0066CC;">The requested URL %s was Bad.</span>\r\n' % url
+                page += '<html>\r\n<head><title>400 %s</title></head>\r\n' % line_info
+                page += '<body>\r\n<h1 style="color:#0066CC;">400 %s</h1><span style="color:#0066CC;">The requested URL %s was Bad.</span>\r\n' % (line_info, url)
                 page += '</body>\r\n</html>'
                 self.content = page.encode(Constant.DECODE)
 
         elif code == '500':
-            self.status_line = 'HTTP/1.1 %s Server Error' % code
+            if not line_info:
+                line_info = 'Server Error'
+            self.status_line = 'HTTP/1.1 %s %s' % (code, line_info)
+
             if not kwargs.get('page'):
                 url = kwargs.get('url')
-                page = str()
+                page = ''
                 page += '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">\r\n'
-                page += '<html>\r\n<head><title>%s Server Error</title></head>\r\n' % code
-                page += '<body>\r\n<h1 style="color:#0066CC;">%s Server Error</h1><span style="color:#0066CC;">The requested URL %s encountered a server exception.</span>\r\n' % (code, url)
+                page += '<html>\r\n<head><title>500 %s</title></head>\r\n' % line_info
+                page += '<body>\r\n<h1 style="color:#0066CC;">500 %s</h1><span style="color:#0066CC;">The requested URL %s encountered a server exception.</span>\r\n' % (line_info, url)
                 error = kwargs.get('error')
                 if error:
                     page += '<div style="margin:20px;">%s</div>\r\n' % error
@@ -77,13 +107,16 @@ class HttpResponse:
                 self.error = error
 
         elif code.startswith('50'):
-            self.status_line = 'HTTP/1.1 %s Server Error' % code
+            if not line_info:
+                line_info = 'Server Error'
+            self.status_line = 'HTTP/1.1 %s %s' % (code, line_info)
+
             if not kwargs.get('page'):
                 url = kwargs.get('url')
-                page = str()
+                page = ''
                 page += '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">\r\n'
-                page += '<html>\r\n<head><title>%s Server Error</title></head>\r\n' % code
-                page += '<body>\r\n<h1 style="color:#0066CC;">%s Server Error</h1><span style="color:#0066CC;">The requested URL %s encountered a server exception.</span>\r\n' % (code, url)
+                page += '<html>\r\n<head><title>%s %s</title></head>\r\n' % (code, line_info)
+                page += '<body>\r\n<h1 style="color:#0066CC;">%s %s</h1><span style="color:#0066CC;">The requested URL %s encountered a server exception.</span>\r\n' % (code, line_info, url)
                 error = kwargs.get('error')
                 if error:
                     page += '<div style="margin:20px;">%s</div>\r\n' % error
@@ -95,7 +128,7 @@ class HttpResponse:
             self.status_line = 'HTTP/1.1 %s Unknown Status' % code
             if not kwargs.get('page'):
                 url = kwargs.get('url')
-                page = str()
+                page = ''
                 page += '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">\r\n'
                 page += '<html>\r\n<head><title>%s Unknown Status</title></head>\r\n' % code
                 page += '<body>\r\n<h1 style="color:#0066CC;">%s Unknown Status</h1><span style="color:#0066CC;">The requested URL %s encountered a unknown status.</span>\r\n' % (code, url)
@@ -112,12 +145,19 @@ class HttpResponse:
         # 封装
         self.data += (self.status_line + '\r\n').encode(Constant.DECODE)
         for key in self.headers.keys():
-            self.data += ('%s: %s' % (key, self.headers[key]) + '\r\n').encode(Constant.DECODE)
+            val = self.headers[key]
+            if key == 'Set-Cookie':
+                for cookie in val:
+                    self.data += ('%s: %s' % (key, cookie) + '\r\n').encode(Constant.DECODE)
+            else:
+                self.data += ('%s: %s' % (key, val) + '\r\n').encode(Constant.DECODE)
         self.data += '\r\n'.encode(Constant.DECODE)
         if self.variable.request_method != 'HEAD' and not self.status_code.startswith('30'):
             self.data += self.content
         error_flag = False
-        if self.status_code.startswith('50'):
+        # 除了500其他500系列错误不打印日志信息
+        # 500 Series errors other than 500 do not print log information.
+        if self.status_code == '500':
             error_flag = True
 
         return self.data, error_flag
