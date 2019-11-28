@@ -18,7 +18,7 @@ class Server:
         cls.client_list = client_list
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind(lst)
-        s.listen(512)
+        # s.listen(512)
         cls.sem = threading.Semaphore(512)
         while True:
             ss, address = s.accept()
