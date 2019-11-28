@@ -19,6 +19,7 @@ class Server:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind(lst)
         s.listen(512)
+        cls.sem = threading.Semaphore(512)
         while True:
             ss, address = s.accept()
             ss.settimeout(Constant.time_out)
@@ -30,18 +31,19 @@ class Server:
     # 等待连接
     @classmethod
     def wait_connect(cls, ss, address):
-        # 加入连接列表
-        cls.lock.acquire()
-        cls.client_list.append((ss, address))
-        cls.lock.release()
-        # 执行业务
-        cls.execute_work(ss)
-        # 移除连接列表
-        cls.lock.acquire()
-        cls.client_list.remove((ss, address))
-        cls.lock.release()
-        # 关闭连接
-        ss.close()
+        with cls.sem:
+            # 加入连接列表
+            cls.lock.acquire()
+            cls.client_list.append((ss, address))
+            cls.lock.release()
+            # 执行业务
+            cls.execute_work(ss)
+            # 移除连接列表
+            cls.lock.acquire()
+            cls.client_list.remove((ss, address))
+            cls.lock.release()
+            # 关闭连接
+            ss.close()
 
     # 执行任务
     @classmethod
