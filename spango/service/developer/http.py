@@ -30,6 +30,7 @@ class Request:
         self.search_str = http_request.search_str
         self.body = http_request.body
         self.data_block = http_request.data_block
+        self.session = http_request.session
 
     # 获取参数
     def get(self, param):
@@ -76,6 +77,7 @@ class Response:
         self.content = http_response.content
         self.data = http_response.data
         self.variable = http_response.variable
+        self.session = http_response.session
 
     # 设置状态码
     def set_status(self, code, **kwargs):

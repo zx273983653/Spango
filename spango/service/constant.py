@@ -70,6 +70,20 @@ class Constant:
         # 设置sessionCookieName
         Constant.sessionCookieName = props.get('sessionCookieName')
 
+        # 设置session过期时间
+        Constant.session_expires = props.get('session_expires')
+        if not Constant.session_expires:
+            Constant.session_expires = 30
+        else:
+            Constant.session_expires = int(Constant.session_expires)
+
+        # 设置并发量
+        Constant.concurrent_num = props.get('concurrent_num')
+        if not Constant.concurrent_num:
+            Constant.concurrent_num = 102
+        else:
+            Constant.concurrent_num = int(Constant.concurrent_num)
+
         # 配置目录情况
         Constant.ROOT_PATH = os.getcwd().replace('\\', '/')
         Constant.STATIC_PATH = Constant.ROOT_PATH + '/static/'

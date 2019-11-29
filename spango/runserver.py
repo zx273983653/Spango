@@ -1,16 +1,13 @@
 import argparse
 import threading
 import time
-from spango.service import server
-from spango.service.constant import Constant
 from spango.service import initaction
+from spango.service.constant import Constant
+from spango.service import server
 
 
 # 获取参数
 def get_parser_params():
-    # 初始化配置信息
-    initaction.action()
-
     # 命令行参数解析对象
     parser = argparse.ArgumentParser()
     parser.add_argument('-ip', dest='listen_ip', default=Constant.DEFAULT_NET_INTERFACE, help='Listen Host(default=%s)' % Constant.DEFAULT_NET_INTERFACE)
@@ -32,6 +29,9 @@ def get_parser_params():
 
 
 def run():
+    # 初始化配置
+    initaction.action()
+
     # 获取启动参数
     listen_ip, listen_port, server_type = get_parser_params()
     print("Listening: %s:%d" % (listen_ip, listen_port))

@@ -12,45 +12,45 @@ class Server:
     lock = threading.Lock()
 
     # 启动
-    @classmethod
-    def run(cls, lst, server_type, client_list):
-        cls.server_type = server_type
-        cls.client_list = client_list
+    @staticmethod
+    def run(lst, server_type, client_list):
+        Server.server_type = server_type
+        Server.client_list = client_list
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind(lst)
-        # s.listen(512)
-        cls.sem = threading.Semaphore(512)
+        s.listen(Constant.concurrent_num)
+        Server.sem = threading.Semaphore(Constant.concurrent_num)
         while True:
             ss, address = s.accept()
             ss.settimeout(Constant.time_out)
             if not Constant.ACCESS_LOG.upper() == 'FALSE':
                 print('client %s is connection!' % (address[0]))
-            t = threading.Thread(target=cls.wait_connect, args=(ss, address,))
+            t = threading.Thread(target=Server.wait_connect, args=(ss, address,))
             t.start()
 
     # 等待连接
-    @classmethod
-    def wait_connect(cls, ss, address):
-        with cls.sem:
+    @staticmethod
+    def wait_connect(ss, address):
+        with Server.sem:
             # 加入连接列表
-            cls.lock.acquire()
-            cls.client_list.append((ss, address))
-            cls.lock.release()
+            Server.lock.acquire()
+            Server.client_list.append((ss, address))
+            Server.lock.release()
             # 执行业务
-            cls.execute_work(ss)
+            Server.execute_work(ss)
             # 移除连接列表
-            cls.lock.acquire()
-            cls.client_list.remove((ss, address))
-            cls.lock.release()
+            Server.lock.acquire()
+            Server.client_list.remove((ss, address))
+            Server.lock.release()
             # 关闭连接
             ss.close()
 
     # 执行任务
-    @classmethod
-    def execute_work(cls, ss):
-        if cls.server_type == 'http':
+    @staticmethod
+    def execute_work(ss):
+        if Server.server_type == 'http':
             httpserver.HttpServer(ss)
-        elif cls.server_type == 'proxy':
-            print('研发中')
-        elif cls.server_type == 'socks':
-            print('研发中')
+        elif Server.server_type == 'task2':
+            print("You chose a task that didn't start.")
+        elif Server.server_type == 'task3':
+            print("You chose a task that didn't start.")

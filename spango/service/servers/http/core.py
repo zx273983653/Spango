@@ -10,6 +10,7 @@ from spango.utils import read_file
 from spango.utils import filetype
 from spango.service.developer.http import Request
 from spango.service.developer.http import Response
+from spango.service.servers.http.session import Session
 
 
 # 接收数据包
@@ -28,7 +29,6 @@ def receive_data(ss, request, response):
             return True
         except Exception as e:
             raise e
-            return True
 
         request.content += tmp_data
         if request.content.find(b'\r\n\r\n') != -1:
@@ -44,7 +44,16 @@ def receive_data(ss, request, response):
                     continue
                 tmp_key = header_line.split(b': ')[0]
                 tmp_value = header_line.split(b': ')[1]
-                request.headers[tmp_key.decode(Constant.DECODE)] = tmp_value.decode(Constant.DECODE)
+                if tmp_key.decode(Constant.DECODE).upper() == 'COOKIE':
+                    cookie_dict = {}
+                    tmp_cookie_lst1 = tmp_value.decode(Constant.DECODE).split('; ')
+                    for cookie1 in tmp_cookie_lst1:
+                        tmp_cookie_lst2 = cookie1.split('=')
+                        if len(tmp_cookie_lst2) == 2:
+                            cookie_dict[tmp_cookie_lst2[0]] = tmp_cookie_lst2[1]
+                    request.headers['Cookie'] = cookie_dict
+                else:
+                    request.headers[tmp_key.decode(Constant.DECODE)] = tmp_value.decode(Constant.DECODE)
 
             # 封装url
             # pack url
@@ -138,29 +147,6 @@ def send_data(ss, response):
         raise SpError(response.error)
 
 
-# 接收与响应数据
-# reception and response data
-def loop_data(ss, request, response, variable):
-    n_do_while = True
-    while n_do_while or variable.http_connection.lower() == 'keep-alive':
-        n_do_while = False
-        # 初始化变量
-        # initialize variable
-        request.set_initialize()
-        response.set_initialize()
-        variable.set_initialize()
-
-        receive_status = receive_data(ss, request, response)
-        if receive_status:
-            break
-        elif receive_status == 0:
-            # Direct discarding
-            send_data(ss, response)
-            break
-        processing_data(request, response, variable)
-        send_data(ss, response)
-
-
 # 处理数据
 # handle data
 def processing_data(request, response, variable):
@@ -181,6 +167,27 @@ def processing_data(request, response, variable):
         # elif request.headers.get('Connection').lower() == 'close':
         #     variable.http_connection = 'close'
     response.variable = variable
+
+    # 设置session
+    if Constant.sessionCookieName:
+        cookie_dict = request.headers.get('Cookie')
+        if cookie_dict:
+            # 更新一下session列表
+            Session.rm_expires()
+            cre_s_flag = True
+            for cookie_key in cookie_dict.keys():
+                if cookie_key == Constant.sessionCookieName:
+                    if Session.init_expires(cookie_dict.get(cookie_key)):
+                        cre_s_flag = False
+                        break
+                    else:
+                        break
+
+            if cre_s_flag:
+                session_, session_id = Session.create_session()
+                request.session = session_
+                response.session = session_
+                print('已创建新的session, id:', session_id)
 
     # url长度限制校验
     # url length restriction
@@ -258,3 +265,26 @@ def processing_data(request, response, variable):
 
     else:
         print('无法处理的url')
+
+
+# 接收与响应数据
+# reception and response data
+def loop_data(ss, request, response, variable):
+    n_do_while = True
+    while n_do_while or variable.http_connection.lower() == 'keep-alive':
+        n_do_while = False
+        # 初始化变量
+        # initialize variable
+        request.set_initialize()
+        response.set_initialize()
+        variable.set_initialize()
+
+        receive_status = receive_data(ss, request, response)
+        if receive_status:
+            break
+        elif receive_status == 0:
+            # Direct discarding
+            send_data(ss, response)
+            break
+        processing_data(request, response, variable)
+        send_data(ss, response)

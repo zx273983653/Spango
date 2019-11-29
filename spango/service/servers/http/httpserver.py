@@ -15,12 +15,13 @@ class HttpServer:
     @classmethod
     def execute(cls):
         try:
-            # 定义变量类
+            # 创建变量类
             cls.variable = Variable()
-            # 定义request
+            # 创建request
             cls.request = HttpRequest()
-            # 定义response
+            # 创建response
             cls.response = HttpResponse()
+
             # 接收响应数据
             core.loop_data(cls.ss, cls.request, cls.response, cls.variable)
         except Exception as e:
