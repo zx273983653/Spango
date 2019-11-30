@@ -1,5 +1,5 @@
 # 提供给开发者调用
-from multidict import CIMultiDict
+from spango.impsrc.multidict import CIMultiDict
 
 
 class Request:

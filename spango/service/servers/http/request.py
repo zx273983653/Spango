@@ -1,4 +1,4 @@
-from multidict import CIMultiDict
+from spango.impsrc.multidict import CIMultiDict
 from urllib import parse
 from spango.service.constant import Constant
 
