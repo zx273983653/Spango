@@ -143,7 +143,7 @@ def send_data(ss, response):
         ss.send(data)
     except ConnectionAbortedError:
         pass
-    if error_flag and Constant.error_log.upper() != 'FALSE':
+    if error_flag and Constant.error_log.upper() == 'TRUE':
         raise SpError(response.error)
 
 

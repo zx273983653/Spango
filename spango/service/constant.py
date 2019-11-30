@@ -79,7 +79,7 @@ class Constant:
         # 错误日志
         Constant.error_log = props.get('error_log')
         if not Constant.error_log:
-            Constant.error_log = 'true'
+            Constant.error_log = 'false'
 
         # 设置sessionCookieName
         Constant.sessionCookieName = props.get('sessionCookieName')
