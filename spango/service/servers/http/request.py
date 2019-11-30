@@ -20,6 +20,8 @@ class HttpRequest:
     body = None
     # form-data方式时一些参数
     data_block = []
+    # session
+    session = None
 
     # 初始化变量
     # initialize
@@ -32,6 +34,7 @@ class HttpRequest:
         self.search_str = None
         self.body = None
         self.data_block = []
+        self.session = None
 
     # 获取参数
     def get(self, param):

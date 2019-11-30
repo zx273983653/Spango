@@ -20,7 +20,7 @@ class Session:
         session = {
             'id': session_id,
             'expires': Session.expires,
-            'cre_time': time.time()
+            'update_time': time.time()
         }
         Session.lock.acquire()
         Session.s_lst.append(session)
@@ -36,21 +36,24 @@ class Session:
                 return s_
         Session.lock.release()
 
+    # 更新session时间
     @staticmethod
     def init_expires(session_id):
         s_ = Session.get_session(session_id)
         if s_:
-            s_['expires'] = Session.expires
-            print('1111111', 'session过期时间已更新')
-            return True
-        else:
-            return False
+            Session.lock.acquire()
+            s_['update_time'] = time.time()
+            Session.lock.release()
+            return s_
 
+    # 移除过期session
     @staticmethod
     def rm_expires():
         Session.lock.acquire()
+        rm_lst = []
         for s_ in Session.s_lst:
-            cre_time = s_.get('cre_time')
-            if int(time.time() - cre_time) >= Session.expires * 60:
-                Session.s_lst.remove(s_)
+            if float(time.time() - s_.get('update_time')) >= Session.expires * 60:
+                rm_lst.append(s_)
+        for rm_s_ in rm_lst:
+            Session.s_lst.remove(rm_s_)
         Session.lock.release()

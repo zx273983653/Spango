@@ -8,8 +8,17 @@ class UrlList:
     @staticmethod
     def init():
         print('Load Urls.')
-        # 添加默认urls
-        UrlList.urls = UrlList.urls + urls.urls
+        # 添加urls
+        add_url_lst = []
+        rm_url_lst = []
+        for url in urls.urls:
+            if isinstance(url, list):
+                add_url_lst = add_url_lst + url
+                rm_url_lst.append(url)
+        else:
+            for rm_url in rm_url_lst:
+                urls.urls.remove(rm_url)
+        UrlList.urls = UrlList.urls + urls.urls + add_url_lst
 
     @staticmethod
     def set_up():

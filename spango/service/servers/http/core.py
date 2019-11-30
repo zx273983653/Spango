@@ -172,13 +172,16 @@ def processing_data(request, response, variable):
     if Constant.sessionCookieName:
         cookie_dict = request.headers.get('Cookie')
         if cookie_dict:
-            # 更新一下session列表
-            Session.rm_expires()
             cre_s_flag = True
             for cookie_key in cookie_dict.keys():
                 if cookie_key == Constant.sessionCookieName:
-                    if Session.init_expires(cookie_dict.get(cookie_key)):
+                    # 更新一下session列表
+                    Session.rm_expires()
+
+                    session_ = Session.init_expires(cookie_dict.get(cookie_key))
+                    if session_:
                         cre_s_flag = False
+                        request.session = session_
                         break
                     else:
                         break
@@ -187,13 +190,20 @@ def processing_data(request, response, variable):
                 session_, session_id = Session.create_session()
                 request.session = session_
                 response.session = session_
-                print('已创建新的session, id:', session_id)
+                response.set_cookie({Constant.sessionCookieName: session_['id']})
 
     # url长度限制校验
     # url length restriction
     if request.url is None or len(request.url) > Constant.maxUrlSize:
         response.set_status('400', url=request.url)
         return
+
+    # 请求长度校验
+    # request length restriction
+    if Constant.maxHttpContentSize:
+        if len(request.content) > Constant.maxHttpContentSize:
+            response.set_status('403', url=request.url, line_info='Access Denied', error='Reason: Reqeust length is too long.')
+            return
 
     # 解析url
     # parse url

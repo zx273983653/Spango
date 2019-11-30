@@ -14,6 +14,22 @@ class Constant:
         file_path = '%s%s' % (os.getcwd(), '/config/spjango.properties')
         props = Properties.parse(file_path)
 
+        include = props.get('include')
+        include_lst = []
+        if include:
+            includes1 = include.split(',')
+            for tmp_include1 in includes1:
+                includes2 = tmp_include1.split(' ')
+                for tmp_include2 in includes2:
+                    tmp_f = tmp_include2.strip()
+                    if len(tmp_f) != 0:
+                        if tmp_f.find(':') != 1 and not tmp_f.startswith('/'):
+                            tmp_f = '%s/config/%s' % (os.getcwd(), tmp_f)
+                        include_lst.append(tmp_f)
+
+        include_lst.append(file_path)
+        props = Properties.parse(include_lst)
+
         # 获取是否打印连接日志
         Constant.ACCESS_LOG = props.get('access_log')
         if not Constant.ACCESS_LOG:
@@ -41,12 +57,10 @@ class Constant:
         else:
             Constant.DEFAULT_PORT = int(Constant.DEFAULT_PORT)
 
-        # 请求头长度限制
-        Constant.maxHttpHeaderSize = props.get('maxHttpHeaderSize')
-        if not Constant.maxHttpHeaderSize:
-            Constant.maxHttpHeaderSize = 3872131
-        else:
-            Constant.maxHttpHeaderSize = int(Constant.maxHttpHeaderSize)
+        # 请求长度限制
+        Constant.maxHttpContentSize = props.get('maxHttpContentSize')
+        if Constant.maxHttpContentSize:
+            Constant.maxHttpContentSize = int(Constant.maxHttpContentSize)
 
         # url长度限制
         Constant.maxUrlSize = props.get('maxUrlSize')
@@ -75,7 +89,7 @@ class Constant:
         if not Constant.session_expires:
             Constant.session_expires = 30
         else:
-            Constant.session_expires = int(Constant.session_expires)
+            Constant.session_expires = float(Constant.session_expires)
 
         # 设置并发量
         Constant.concurrent_num = props.get('concurrent_num')

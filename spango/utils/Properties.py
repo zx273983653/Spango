@@ -8,12 +8,21 @@ class Properties:
         self.file_name = file_name
         self.properties = {}
         try:
-            fopen = open(self.file_name, 'r', encoding='utf-8')
-            for line in fopen:
-                line = line.strip()
-                if line.find('=') > 0 and not line.startswith('#'):
-                    strs = line.split('=')
-                    self.properties[strs[0].strip()] = strs[1].strip()
+            if isinstance(self.file_name, list):
+                for tmp_file_ in self.file_name:
+                    fopen = open(tmp_file_, 'r', encoding='utf-8')
+                    for line in fopen:
+                        line = line.strip()
+                        if line.find('=') > 0 and not line.startswith('#'):
+                            strs = line.split('=')
+                            self.properties[strs[0].strip()] = strs[1].strip()
+            else:
+                fopen = open(self.file_name, 'r', encoding='utf-8')
+                for line in fopen:
+                    line = line.strip()
+                    if line.find('=') > 0 and not line.startswith('#'):
+                        strs = line.split('=')
+                        self.properties[strs[0].strip()] = strs[1].strip()
         except Exception as e:
             raise e
         else:

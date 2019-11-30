@@ -1,8 +1,12 @@
 # 自定义方法类
+from spango.service.developer import utils
 
 
 def hello_world():
-    return 'HelloWorld'
+    json = utils.JsonObject()
+    json.put('abc', '123')
+    json.put('zxc', 456)
+    return json.to_string()
 
 
 def login(request, response, username, password):

@@ -22,6 +22,8 @@ class HttpResponse:
     data = bytes()
     # 错误信息
     error = None
+    # session
+    session = None
     # 封装变量容器
     variable = None
 
@@ -49,6 +51,7 @@ class HttpResponse:
         self.content = bytes()
         self.data = bytes()
         self.error = None
+        self.session = None
         self.variable = None
 
     # 设置状态码
@@ -125,15 +128,31 @@ class HttpResponse:
                 self.error = error
 
         else:
-            self.status_line = 'HTTP/1.1 %s Unknown Status' % code
+            if not line_info:
+                line_info = 'Unknown Status'
+            self.status_line = 'HTTP/1.1 %s %s' % (code, line_info)
             if not kwargs.get('page'):
                 url = kwargs.get('url')
                 page = ''
                 page += '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">\r\n'
-                page += '<html>\r\n<head><title>%s Unknown Status</title></head>\r\n' % code
-                page += '<body>\r\n<h1 style="color:#0066CC;">%s Unknown Status</h1><span style="color:#0066CC;">The requested URL %s encountered a unknown status.</span>\r\n' % (code, url)
+                page += '<html>\r\n<head><title>%s %s</title></head>\r\n' % (code, line_info)
+                page += '<body>\r\n<h1 style="color:#0066CC;">%s Unknown Status</h1><span style="color:#0066CC;">The requested URL %s encountered a %s.</span>\r\n' % (code, url, line_info)
+                error = kwargs.get('error')
+                if error:
+                    page += '<div style="margin:20px;">%s</div>\r\n' % error
                 page += '</body>\r\n</html>'
                 self.content = page.encode(Constant.DECODE)
+
+    # 设置cookie
+    def set_cookie(self, cookies, path='/', domain=None):
+        cookie_list = []
+        for k in cookies.keys():
+            if domain:
+                cookie_value = "%s=%s; path=%s; domain=%s" % (k, cookies[k], path, domain)
+            else:
+                cookie_value = "%s=%s; path=%s" % (k, cookies[k], path)
+            cookie_list.append(cookie_value)
+        self.headers['Set-Cookie'] = cookie_list
 
     # 封装并返回响应数据
     def setup_data(self):
@@ -169,3 +188,4 @@ class HttpResponse:
         self.body = response.body
         self.content = response.content
         self.data = response.data
+        self.session = response.session

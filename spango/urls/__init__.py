@@ -1,3 +1,4 @@
+
 def url(regex, view=None):
     if view is None:
         view = regex
@@ -9,3 +10,7 @@ def url(regex, view=None):
     }
 
     return return_json
+
+
+def include(other_urls):
+    return other_urls
