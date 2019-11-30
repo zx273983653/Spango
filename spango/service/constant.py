@@ -11,7 +11,7 @@ class Constant:
     def set_up():
         print('Load configuration information.')
         # 读取配置信息
-        file_path = '%s%s' % (os.getcwd(), '/config/spjango.properties')
+        file_path = '%s%s' % (os.getcwd(), '/config/spango.properties')
         props = Properties.parse(file_path)
 
         include = props.get('include')
