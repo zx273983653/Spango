@@ -214,7 +214,8 @@ def processing_data(request, response, variable):
 
     regex_json = UrlList.matching(path)
     if not Constant.ACCESS_LOG.upper() == 'FALSE':
-        print('Request interface:', regex_json)
+        if regex_json:
+            print('Request interface:', regex_json)
     if regex_json is None:
         # 匹配静态资源
         filename = static_path + path
