@@ -44,13 +44,16 @@ class Request:
         c = {}
         cookies = self.headers.get('Cookie')
         if cookies:
-            blocks = cookies.split('; ')
-            for block in blocks:
-                kvs = block.split('=')
-                if len(kvs) == 2:
-                    k = kvs[0]
-                    v = kvs[1]
-                    c[k] = v
+            try:
+                blocks = cookies.split('; ')
+                for block in blocks:
+                    kvs = block.split('=')
+                    if len(kvs) == 2:
+                        k = kvs[0]
+                        v = kvs[1]
+                        c[k] = v
+            except AttributeError:
+                return None
         return c
 
 

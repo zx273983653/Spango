@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="02f39b22-ab44-4bef-bb55-0140600b5976" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/service/server/timer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spango/service/developer/timer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spango/service/servers/server_timer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/spango.properties" beforeDir="false" afterPath="$PROJECT_DIR$/config/spango.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spango/service/constant.py" beforeDir="false" afterPath="$PROJECT_DIR$/spango/service/constant.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spango/service/initaction/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/spango/service/initaction/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spango/service/servers/http/core.py" beforeDir="false" afterPath="$PROJECT_DIR$/spango/service/servers/http/core.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spango/service/developer/http.py" beforeDir="false" afterPath="$PROJECT_DIR$/spango/service/developer/http.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,11 +13,32 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/spango.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="41" column="19" lean-forward="true" selection-start-line="41" selection-start-column="19" selection-end-line="41" selection-end-column="19" />
+            <state relative-caret-position="316">
+              <caret line="41" column="19" selection-start-line="41" selection-start-column="19" selection-end-line="41" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/spango/service/developer/http.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="260">
+              <caret line="53" column="32" lean-forward="true" selection-start-line="53" selection-start-column="32" selection-end-line="53" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/spango/service/servers/http/request.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="125">
+              <caret line="78" column="36" lean-forward="true" selection-start-line="78" selection-start-column="36" selection-end-line="78" selection-end-column="36" />
+              <folding>
+                <element signature="e#0#47#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -118,7 +133,6 @@
         <option value="$PROJECT_DIR$/control/views.py" />
         <option value="$PROJECT_DIR$/config/spjango.properties" />
         <option value="$PROJECT_DIR$/spango/service/servers/http/request.py" />
-        <option value="$PROJECT_DIR$/spango/service/developer/http.py" />
         <option value="$PROJECT_DIR$/spango/service/servers/http_timer.py" />
         <option value="$PROJECT_DIR$/spango/service/servers/http/session.py" />
         <option value="$PROJECT_DIR$/spango/service/servers/timer.py" />
@@ -129,10 +143,11 @@
         <option value="$PROJECT_DIR$/service/server/timer.py" />
         <option value="$PROJECT_DIR$/spango/service/servers/http/core.py" />
         <option value="$PROJECT_DIR$/config/spango.properties" />
+        <option value="$PROJECT_DIR$/spango/service/developer/http.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="1045" />
     <option name="y" value="-10" />
     <option name="width" value="1190" />
@@ -146,6 +161,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -215,13 +231,12 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/spango/service/developer" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -524,6 +539,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24966975" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -741,13 +757,6 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/spango/service/servers/http/test.py" />
-    <entry file="file://$PROJECT_DIR$/spango/service/developer/http.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="14" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/spango/service/servers/http/httpserver.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="386">
@@ -768,16 +777,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/spango/service/servers/http/request.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="31" selection-start-line="2" selection-start-column="31" selection-end-line="2" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/spango/service/servers/http_timer.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/spango/service/servers/http_timer.py" />
     <entry file="file://$PROJECT_DIR$/spango/service/servers/http/session.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="139">
@@ -857,8 +857,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/config/spango.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="41" column="19" lean-forward="true" selection-start-line="41" selection-start-column="19" selection-end-line="41" selection-end-column="19" />
+        <state relative-caret-position="316">
+          <caret line="41" column="19" selection-start-line="41" selection-start-column="19" selection-end-line="41" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/spango/service/servers/http/request.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="78" column="36" lean-forward="true" selection-start-line="78" selection-start-column="36" selection-end-line="78" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#47#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/spango/service/developer/http.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="53" column="32" lean-forward="true" selection-start-line="53" selection-start-column="32" selection-end-line="53" selection-end-column="32" />
         </state>
       </provider>
     </entry>
