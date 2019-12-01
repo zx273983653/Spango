@@ -39,10 +39,11 @@ class HttpRequest:
     # 获取参数
     def get(self, param):
         if self.method == 'POST' and self.body and (self.headers.get('Content-Type') is None or self.headers.get('Content-Type').find('multipart/form-data') == -1):
+            body_str = self.body.decode(Constant.DECODE)
             if self.search_str:
-                self.search_str += "%s%s" % ('&', self.body)
+                self.search_str += "%s%s" % ('&', body_str)
             else:
-                self.search_str = "%s%s" % ('&', self.body)
+                self.search_str = "%s%s" % ('&', body_str)
 
         if self.search_str:
             args_blocks = self.search_str.split('&')
@@ -60,7 +61,7 @@ class HttpRequest:
             if self.body:
                 for once_block in self.data_block:
                     data_name = once_block.get('data_name')
-                    if data_name and param == data_name.decode(Constant.DECODE):
+                    if data_name and param == data_name:
                         return once_block.get('data_value')
 
         return None
@@ -68,10 +69,11 @@ class HttpRequest:
     # 获取集合类型参数
     def gets(self, params):
         if self.method == 'POST' and self.body and (self.headers.get('Content-Type') is None or self.headers.get('Content-Type').find('multipart/form-data') == -1):
+            body_str = self.body.decode(Constant.DECODE)
             if self.search_str:
-                self.search_str += "%s%s" % ('&', self.body)
+                self.search_str += "%s%s" % ('&', body_str)
             else:
-                self.search_str = "%s%s" % ('&', self.body)
+                self.search_str = "%s%s" % ('&', body_str)
 
         r_list = []
         if self.search_str:

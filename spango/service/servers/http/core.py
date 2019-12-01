@@ -121,16 +121,17 @@ def receive_data(ss, request, response):
                                         Constant.DECODE)
                                     data_block_dict['filename'] = filename
                                 if tmp_line2.find(b'Content-Type:') != -1:
-                                    content_type = tmp_line2[
+                                    data_content_type = tmp_line2[
                                                    tmp_line2.find(b'Content-Type:') + 13:].decode(
                                         Constant.DECODE)
-                                    data_block_dict['content_type'] = content_type
+                                    data_block_dict['content_type'] = data_content_type
                     data_value = data_block[data_block.find(b'\r\n\r\n') + 4:-2]
 
-                    try:
-                        data_block_dict['data_value'] = data_value.decode(Constant.DECODE)
-                    except UnicodeDecodeError:
+                    if data_block_dict.get('filename'):
                         data_block_dict['data_value'] = data_value
+                    else:
+                        data_block_dict['data_value'] = data_value.decode(Constant.DECODE)
+
                     request.data_block.append(data_block_dict)
 
 
