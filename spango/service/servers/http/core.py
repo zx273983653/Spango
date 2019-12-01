@@ -1,13 +1,12 @@
 import socket
 from inspect import isfunction
-
+import os
+from spango.utils import filetype
 from spango.error import SpError
 from spango.service.constant import Constant
 from spango.urls.url_list import UrlList
 from spango.utils import parse_urls
 from spango.utils import html_escape
-from spango.utils import read_file
-from spango.utils import filetype
 from spango.service.developer.http import Request
 from spango.service.developer.http import Response
 from spango.service.servers.http.session import Session
@@ -137,14 +136,43 @@ def receive_data(ss, request, response):
 
 # 发送数据
 # send data
-def send_data(ss, response):
-    data, error_flag = response.setup_data()
-    try:
-        ss.send(data)
-    except ConnectionAbortedError:
-        pass
-    if error_flag and Constant.error_log.upper() == 'TRUE':
-        raise SpError(response.error)
+def send_data(ss, response, filename=None):
+    if filename:
+        # 获取文件名和扩展名
+        name, extension_name = os.path.splitext(filename)
+        content_type = filetype.content_type_list.get(extension_name)
+        # 封装文件内容
+        with open(filename, "rb") as f:
+            first_flag = True
+            while True:
+                data = f.read(4096)
+                if first_flag:
+                    first_flag = False
+                    file_size = os.path.getsize(filename)
+                    response.headers['Content-Length'] = file_size
+                    if content_type:
+                        response.headers['Content-Type'] = content_type
+                    if data:
+                        response.content = data
+                    data, error_flag = response.setup_data()
+                    if error_flag and Constant.error_log.upper() == 'TRUE':
+                        raise SpError(response.error)
+
+                try:
+                    ss.send(data)
+                except ConnectionAbortedError:
+                    pass
+                if data == b"":
+                    break
+        f.close()
+    else:
+        data, error_flag = response.setup_data()
+        if error_flag and Constant.error_log.upper() == 'TRUE':
+            raise SpError(response.error)
+        try:
+            ss.send(data)
+        except ConnectionAbortedError:
+            pass
 
 
 # 处理数据
@@ -219,27 +247,20 @@ def processing_data(request, response, variable):
     if regex_json is None:
         # 匹配静态资源
         filename = static_path + path
-        content, name, extension_name = read_file(filename)
-        if content:
-            tmp_content_type = filetype.content_type_list.get(extension_name)
-            if tmp_content_type:
-                response.headers['Content-Type'] = tmp_content_type
-            response.content = content
-        else:
+        if not os.path.isfile(filename):
             response.set_status('404', url=request.url)
-        return
+            return
+
+        return filename
 
     if isinstance(regex_json.get('view'), str):
         filename = templates_path + regex_json.get('view')
-        content, name, extension_name = read_file(filename)
-        if content:
-            tmp_content_type = filetype.content_type_list.get(extension_name)
-            if tmp_content_type:
-                response.headers['Content-Type'] = tmp_content_type
-            response.content = content
-        else:
+        if not os.path.isfile(filename):
             response.set_status('500', url=request.url, error='系统找不到文件：' + filename)
             return
+        else:
+            return filename
+
     elif isfunction(regex_json.get('view')):
         func = regex_json.get('view')
         args = regex_json.get('args')
@@ -270,9 +291,9 @@ def processing_data(request, response, variable):
         else:
             response.set_status('500', url=request.url, error='未知的返回值类型：' + html_escape(str(type(tmp_response))))
             return
-
     else:
         print('无法处理的url')
+        return
 
 
 # 接收与响应数据
@@ -294,5 +315,5 @@ def loop_data(ss, request, response, variable):
             # Direct discarding
             send_data(ss, response)
             break
-        processing_data(request, response, variable)
-        send_data(ss, response)
+        filename = processing_data(request, response, variable)
+        send_data(ss, response, filename=filename)

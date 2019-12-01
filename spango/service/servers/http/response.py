@@ -160,7 +160,8 @@ class HttpResponse:
         if not self.variable:
             self.variable = Variable()
         self.headers['Connection'] = self.variable.http_connection
-        self.headers['Content-Length'] = len(self.content)
+        if not self.headers.get('Content-Length'):
+            self.headers['Content-Length'] = len(self.content)
         # 封装
         self.data += (self.status_line + '\r\n').encode(Constant.DECODE)
         for key in self.headers.keys():
