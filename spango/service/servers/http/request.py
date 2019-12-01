@@ -62,7 +62,10 @@ class HttpRequest:
                 for once_block in self.data_block:
                     data_name = once_block.get('data_name')
                     if data_name and param == data_name:
-                        return once_block.get('data_value')
+                        if once_block.get('filename'):
+                            return {'filename': once_block.get('filename'), 'value': once_block.get('data_value')}
+                        else:
+                            return once_block.get('data_value')
 
         return None
 
