@@ -98,6 +98,14 @@ class Constant:
         else:
             Constant.concurrent_num = int(Constant.concurrent_num)
 
+        # 启动定时器
+        Constant.server_timer = props.get('server_timer')
+        if Constant.server_timer:
+            if Constant.server_timer.upper() == 'TRUE':
+                Constant.server_timer = True
+            else:
+                Constant.server_timer = False
+
         # 配置目录情况
         Constant.ROOT_PATH = os.getcwd().replace('\\', '/')
         Constant.STATIC_PATH = Constant.ROOT_PATH + '/static/'

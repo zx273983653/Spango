@@ -175,9 +175,6 @@ def processing_data(request, response, variable):
             cre_s_flag = True
             for cookie_key in cookie_dict.keys():
                 if cookie_key == Constant.sessionCookieName:
-                    # 更新一下session列表
-                    Session.rm_expires()
-
                     session_ = Session.init_expires(cookie_dict.get(cookie_key))
                     if session_:
                         cre_s_flag = False
