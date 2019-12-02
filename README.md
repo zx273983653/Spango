@@ -5,7 +5,7 @@
 Spango是一款开源web框架，内置web服务。
 
 Spango主要用于快速搭建web应用。以满足我们的工作或学习的需求。
-它的代码架构简单，注释明确，也适合想要了解服务器内部工作原理的人进行学习。
+代码架构简单注释明确，适合想要了解服务器内部工作原理的人进行学习。
 
 
 Spango is an open source web framework with built-in web services.
